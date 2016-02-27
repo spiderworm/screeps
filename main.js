@@ -1,6 +1,4 @@
 
-console.log('test');
-
 var loopSystem = require('loopSystem');
 
 var systems = [
