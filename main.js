@@ -1,5 +1,5 @@
 
-console.info('test');
+console.log('test');
 
 var loopSystem = require('loopSystem');
 
