@@ -30,6 +30,15 @@ var spawnSystem = {
     },
     unqueueAll: function(role) {
         this.memory.queue = this.memory.queue.filter(function(name) { return name !== role.name; });
+    },
+    queueUpTo: function(role, count) {
+        var currentCount = this.countQueue(role);
+        for (var i=currentCount; i<count; i++) {
+            this.queue(role);
+        }
+    },
+    countQueue: function(role) {
+        return this.memory.queue.filter(function(name) { return name === role.name; }).length;
     }
 };
 
