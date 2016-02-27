@@ -32,8 +32,7 @@ var economySystem = {
         });
         
         creepBoredomSystem.forEach(function(creep) {
-            creep.suicide();
-            /*
+            //creep.suicide();
             if (wandererUtil.creepCanHaveRole(creep)) {
                 if (harvesterUtil.creepHasRole(creep)) {
                     spawnSystem.unqueueAll(creepRoleUtil.roles.harvester);
@@ -41,7 +40,6 @@ var economySystem = {
                 wandererUtil.assignRole(creep);
                 return;
             }
-            */
         });
 
         /*
