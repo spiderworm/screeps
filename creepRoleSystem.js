@@ -8,7 +8,6 @@ CreepRoleSystem.prototype.addRoles = function() {
 	}.bind(this));
 };
 CreepRoleSystem.prototype.addRole = function(role) {
-    console.log('test 2', this.roles);
 	this.roles[role.name] = role;
 };
 CreepRoleSystem.prototype.getCreepRole = function(creep) {

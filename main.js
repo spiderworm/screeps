@@ -5,7 +5,8 @@ var systems = [
     require('defenseSystem'),
     require('economicSystem'),
     require('attackSystem'),
-    require('creepProcessingSystem')
+    require('creepProcessingSystem'),
+    require('spawnSystem')
 
     /*
     require('creepBoredomSystem'),
