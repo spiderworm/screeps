@@ -15,4 +15,4 @@ upgrader.role = Role.create(
 	upgrader.upgrade.bind(upgrader)
 );
 
-module.exports = upgraderRole;
+module.exports = upgrader;
