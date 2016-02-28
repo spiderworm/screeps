@@ -47,7 +47,7 @@ var upgrader = {
 			memory.source = any.of(roomUtil.getSources(creep.room)).id;
 		}
 
-		var source = sourceUtil.getById(cmemory.source);
+		var source = sourceUtil.getById(memory.source);
 		
 		try {
 			var result = creep.harvest(source);
