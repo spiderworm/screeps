@@ -6,7 +6,7 @@ var harvester = require('harvester');
 var upgrader = require('upgrader');
 var creepRoleSystem = require('creepRoleSystem');
 
-creepRoleSystem.addRoles(harveseter.role, upgrader.role);
+creepRoleSystem.addRoles(harvester.role, upgrader.role);
 
 var economicSystem = {
     tick: function() {
