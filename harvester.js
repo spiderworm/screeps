@@ -33,16 +33,7 @@ var harvester = {
 			break;
 		}
 	},
-	
-	moveTo: function(creep, pos) {
-		var result = creep.moveTo(pos);
-		switch(result) {
-			case OK:
-				//creepLogUtil.log(creep);
-			break;
-		}
-	},
-	
+
 	deliver: function(creep) {
 		var result = creep.transfer(Game.spawns.Spawn1, RESOURCE_ENERGY);
 		switch(result) {
@@ -55,8 +46,17 @@ var harvester = {
 			case ERR_FULL:
 			break;
 		}
-	}
-
+	},
+    
+    moveTo: function(creep, pos) {
+        var result = creep.moveTo(pos);
+        switch(result) {
+            case OK:
+                //creepLogUtil.log(creep);
+            break;
+        }
+    }
+    
 };
 
 

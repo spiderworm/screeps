@@ -5,6 +5,7 @@ var composer = require('composer');
 var any = require('any');
 var roomUtil = require('roomUtil');
 var sourceUtil = require('sourceUtil');
+var creepBoredomUtil = require('creepMemoryUtil');
 
 var UPGRADE_TASK = 'upgrade';
 var HARVEST_TASK = 'harvest';
@@ -43,8 +44,8 @@ var upgrader = {
 	harvest: function(creep) {
 		var memory = this.memory(creep);
 
-		if (!memory.source) {
-			memory.source = any.of(roomUtil.getSources(creep.room)).id;
+		if (creepBoredomUtil.getBoredom(creep) > 5 || !memory.source) {
+			this._chooseSource(creep);
 		}
 
 		var source = sourceUtil.getById(memory.source);
@@ -57,16 +58,16 @@ var upgrader = {
 
 		switch(result) {
 			case OK:
+				creepBoredomUtil.removeBoredom(creep);
 			break;
 			case ERR_NOT_IN_RANGE:
 				this.moveTo(creep, source);
 			break;
-			case ERR_INVALID_TARGET:
-			break;
 			case ERR_BUSY:
 			break;
+			case ERR_INVALID_TARGET:
 			default:
-				console.log(creep.name, "got unexpected harvest result", result);
+				creepBoredomUtil.addBoredom(creep);
 			break;
 		}
 	},
@@ -77,13 +78,18 @@ var upgrader = {
 			var result = creep.upgradeController(controller);
 			switch(result) {
 				case OK:
+					creepBoredomUtil.removeBoredom(creep);
 				break;
 				case ERR_NOT_IN_RANGE:
 					this.moveTo(creep, controller);
 				break;
 				case ERR_FULL:
+				default:
+					creepBoredomUtil.addBoredom(creep);
 				break;
 			}
+		} else {
+			creepBoredomUtil.addBoredom(creep);
 		}
 	},
 	
@@ -91,9 +97,21 @@ var upgrader = {
 		var result = creep.moveTo(pos);
 		switch(result) {
 			case OK:
+				creepBoredomUtil.removeBoredom(creep);
+			break;
+			default:
+				creepBoredomUtil.addBoredom(creep);
 			break;
 		}
+	},
+
+	_chooseSource: function(creep) {
+		var memory = this.memory(creep);
+		if (!memory.source) {
+			memory.source = any.of(roomUtil.getSources(creep.room)).id;
+		}
 	}
+
 };
 
 upgrader.role = Role.create(
