@@ -18,7 +18,7 @@ var upgrader = {
 				this.upgradeController(creep, creep.room.controller);
 			break;
 			default:
-				this.harvest(creep, sourceUtil.getById(memory.source));
+				this.harvest(creep, sourceUtil.getById(this.memory(creep).source));
 			break;
 		}
 	},
