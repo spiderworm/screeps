@@ -2,6 +2,7 @@
 var composer = require('composer');
 var spawnUtil = require('spawnUtil');
 var creepNames = require('creepNames');
+var creepRoleSystem = require('creepRoleSystem');
 
 function SpawnSystem() {}
 SpawnSystem.prototype.upgrade = function() {
@@ -12,7 +13,7 @@ SpawnSystem.prototype.upgrade = function() {
 SpawnSystem.prototype.tick = function() {
 	spawnUtil.forEach(function(mySpawn) {
 		if (this.memory.queue[0]) {
-			var role = creepRoleUtil.roles[this.memory.queue[0]];
+			var role = creepRoleSystem.roles[this.memory.queue[0]];
 			var reason = mySpawn.canCreateCreep(role.body);
 			if (reason === OK) {
 				this.memory.queue.shift();
