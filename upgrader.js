@@ -11,26 +11,16 @@ var UPGRADE_TASK = 'upgrade';
 var HARVEST_TASK = 'harvest';
 
 var upgrader = {
-	upgrade: function(creep) {
-		switch(this.getTask(creep)) {
+
+	tickCreep: function(creep) {
+		switch(this._getTask(creep)) {
 			case UPGRADE_TASK:
-				this.upgradeController(creep);
+				this.upgradeController(creep, creep.room.controller);
 			break;
 			default:
-				this.harvest(creep);
+				this.harvest(creep, sourceUtil.getById(memory.source));
 			break;
 		}
-	},
-
-	getTask: function(creep) {
-		var memory = this.memory(creep);
-		var task = memory.task;
-		if (!task || (task === UPGRADE_TASK && creep.carry.energy === 0)) {
-			this.startHarvesting(creep);
-		} else if (task === HARVEST_TASK && creep.carry.energy >= creep.carryCapacity) {
-			this.startUpgrading(creep);
-		}
-		return memory.task;
 	},
 
 	startHarvesting: function(creep) {
@@ -41,39 +31,33 @@ var upgrader = {
 		this.memory(creep).task = UPGRADE_TASK;
 	},
 
-	harvest: function(creep) {
-		var memory = this.memory(creep);
-
-		if (creepBoredomUtil.getBoredom(creep) > 5 || !memory.source) {
-			this._chooseSource(creep);
-		}
-
-		var source = sourceUtil.getById(memory.source);
-		
-		try {
-			var result = creep.harvest(source);
-		} catch(e) {
-			console.log(e.message);
-		}
-
-		switch(result) {
-			case OK:
-				creepBoredomUtil.removeBoredom(creep);
-			break;
-			case ERR_NOT_IN_RANGE:
-				this.moveTo(creep, source);
-			break;
-			case ERR_BUSY:
-			break;
-			case ERR_INVALID_TARGET:
-			default:
-				creepBoredomUtil.addBoredom(creep);
-			break;
+	harvest: function(creep, source) {
+		if (source) {
+			try {
+				var result = creep.harvest(source);
+			} catch(e) {
+				console.log(e.message);
+			}
+			switch(result) {
+				case OK:
+					creepBoredomUtil.removeBoredom(creep);
+				break;
+				case ERR_NOT_IN_RANGE:
+					this.moveTo(creep, source);
+				break;
+				case ERR_BUSY:
+				break;
+				case ERR_INVALID_TARGET:
+				default:
+					creepBoredomUtil.addBoredom(creep);
+				break;
+			}
+		} else {
+			creepBoredomUtil.addBoredom(creep);
 		}
 	},
 	
-	upgradeController: function(creep) {
-		var controller = creep.room.controller;
+	upgradeController: function(creep, controller) {
 		if (controller) {
 			var result = creep.upgradeController(controller);
 			switch(result) {
@@ -105,6 +89,19 @@ var upgrader = {
 		}
 	},
 
+	_getTask: function(creep) {
+		var memory = this.memory(creep);
+		if (!memory.task || (memory.task === UPGRADE_TASK && creep.carry.energy === 0)) {
+			this.startHarvesting(creep);
+		} else if (memory.task === HARVEST_TASK && creep.carry.energy >= creep.carryCapacity) {
+			this.startUpgrading(creep);
+		}
+		if (memory.task === HARVEST_TASK && (creepBoredomUtil.getBoredom(creep) > 5 || !memory.source)) {
+			this._chooseSource(creep);
+		}
+		return memory.task;
+	},
+
 	_chooseSource: function(creep) {
 		var memory = this.memory(creep);
 		if (!memory.source) {
@@ -117,7 +114,7 @@ var upgrader = {
 upgrader.role = Role.create(
 	'upgrader',
 	[WORK, CARRY, MOVE],
-	upgrader.upgrade.bind(upgrader)
+	upgrader.tickCreep.bind(upgrader)
 );
 
 composer.addFeature(upgrader, 'creepMemory', 'upgrader');
