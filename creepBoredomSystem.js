@@ -8,18 +8,15 @@ var loopSystem = require('loopSystem');
 
 var creepBoredomSystem = {
     _creeps: [],
-    _refreshInterval: 10000,
     upgrade: function() {
-        if (!this.memory.creeps || Array.isArray(this.memory.creeps)) {
+        if (!this.memory.creeps) {
             this.memory.creeps = {};
         }
     },
+    init: function() {
+        this.memory.creeps = {};
+    },
     tick: function() {
-        loopSystem.addLoop(
-            'creep boredom refresh',
-            this.refresh.bind(this),
-            this._refreshInterval
-        );
     },
     refresh: function() {
         var boredDate = (new Date()).getTime() - 5000;

@@ -1,8 +1,13 @@
 
-var loopSystem = require('loopSystem');
-
 var systems = [
-    loopSystem,
+    require('loopSystem'),
+    require('creepRoleSystem'),
+    require('defenseSystem'),
+    require('economicSystem'),
+    require('attackSystem'),
+    require('creepProcessingSystem')
+
+    /*
     require('creepBoredomSystem'),
     require('defenseSystem'),
     require('turretSystem'),
@@ -13,6 +18,7 @@ var systems = [
     require('harvestSystem'),
     require('wanderSystem'),
     require('spawnSystem')
+    */
 ];
 
 systems.forEach(function(system) {

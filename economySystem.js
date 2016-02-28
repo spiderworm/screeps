@@ -18,6 +18,7 @@ var economySystem = {
         var needs = this.getNeeds();
         
         needs.sources.forEach(function(sourceNeed) {
+            var unmet = 0;
             for(var i=0; i<sourceNeed.count; i++) {
                 var creep = creepBoredomSystem.extractCreep(function(creep) {
                     return harvesterUtil.creepCanHaveRole(creep);
@@ -26,9 +27,10 @@ var economySystem = {
                     harvesterUtil.assignRole(creep);
                     harvesterUtil.assignSource(creep, sourceNeed.source);
                 } else {
-                    spawnSystem.queue(creepRoleUtil.roles.harvester);
+                    unmet++;
                 }
             }
+            spawnSystem.queueUpTo(creepRoleUtil.roles.harvester, unmet);
         });
         
         creepBoredomSystem.forEach(function(creep) {
