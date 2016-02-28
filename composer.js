@@ -19,7 +19,7 @@ var composer = {
         },
         creepMemory: function(obj, space) {
             obj.memory = function(creep) {
-                return creepMemoryUtil.get(space);
+                return creepMemoryUtil.get(creep, space);
             }
         },
         needs: function(obj) {

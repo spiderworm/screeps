@@ -4,6 +4,7 @@ var creepMemoryUtil = require('creepMemoryUtil');
 var composer = require('composer');
 var any = require('any');
 var roomUtil = require('roomUtil');
+var sourceUtil = require('sourceUtil');
 
 var UPGRADE_TASK = 'upgrade';
 var HARVEST_TASK = 'harvest';
