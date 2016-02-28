@@ -4,12 +4,6 @@ var Role = require('Role');
 
 var harvester = {
 
-	role: Role.create(
-		'harvester',
-		[WORK, CARRY, MOVE], 
-		this.harvest.bind(this)
-	),
-
     harvest: function(creep) {
     	if(creep.carry.energy >= creep.carryCapacity) {
     	    return this.deliver(creep);			
@@ -64,5 +58,13 @@ var harvester = {
     }
 
 };
+
+
+harvester.role = Role.create(
+	'harvester',
+	[WORK, CARRY, MOVE], 
+	harvester.harvest.bind(harvester)
+);
+
 
 module.exports = harvester;
