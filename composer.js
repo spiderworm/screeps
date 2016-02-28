@@ -1,5 +1,6 @@
 
 var memoryUtil = require('memoryUtil');
+var creepMemoryUtil = require('creepMemoryUtil');
 
 var composer = {
     addFeature: function(obj, feature) {
@@ -16,6 +17,11 @@ var composer = {
                 get: function() { return memoryUtil.get(space); }
             });
         },
+        creepMemory: function(obj, space) {
+            obj.memory = function(creep) {
+                return creepMemoryUtil.get(space);
+            }
+        },
         needs: function(obj) {
             obj._needs = {};
             Object.defineProperty(obj, 'needs', {
@@ -27,11 +33,6 @@ var composer = {
                 }
                 obj._needs[space].push(need);
             };
-        },
-        creepProcessing: function(obj) {
-            if (typeof obj.processCreep !== "function") {
-                throw new Error('needs to have the processCreep function');
-            }
         }
     }
 };
