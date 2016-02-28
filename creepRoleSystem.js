@@ -14,7 +14,7 @@ CreepRoleSystem.prototype.getCreepRole = function(creep) {
 	return this.roles[creep.memory.role];
 };
 CreepRoleSystem.prototype.getTickFunction = function(role) {
-	return require(role.tick);
+	return role.tick;
 };
 
 module.exports = new CreepRoleSystem();
