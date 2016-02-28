@@ -1,6 +1,7 @@
 
 var composer = require('composer');
 var creepUtil = require('creepUtil');
+var creepRoleSystem = require('creepRoleSystem');
 
 var creepProcessingSystem = {
     tick: function() {
