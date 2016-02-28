@@ -30,8 +30,6 @@ systems.forEach(function(system) {
     }
 });
 
-require('spawnSystem').unqueueAll(require('creepRoleUtil').roles.turret);
-
 module.exports.loop = function () {
     var error = null;
 

@@ -15,6 +15,23 @@ var composer = {
             Object.defineProperty(obj, 'memory', {
                 get: function() { return memoryUtil.get(space); }
             });
+        },
+        needs: function(obj) {
+            obj._needs = {};
+            Object.defineProperty(obj, 'needs', {
+                get: function() { return obj._needs; }
+            });
+            obj.addNeed = function(space, need) {
+                if (!obj._needs[space]) {
+                    obj._needs[space] = [];
+                }
+                obj._needs[space].push(need);
+            };
+        },
+        creepProcessing: function(obj) {
+            if (typeof obj.processCreep !== "function") {
+                throw new Error('needs to have the processCreep function');
+            }
         }
     }
 };
