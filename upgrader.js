@@ -4,7 +4,7 @@ var Role = require('Role');
 var upgrader = {
 	upgrade: function(creep) {
 
-		console.info('upgrader');
+		console.log('upgrader');
 
 	}
 };
