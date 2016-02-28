@@ -4,7 +4,7 @@ var spawnUtil = require('spawnUtil');
 var creepNames = require('creepNames');
 
 function SpawnSystem() {}
-SpawnSystem.prototype.upgrade: function() {
+SpawnSystem.prototype.upgrade = function() {
 	if (!this.memory.queue) {
 		this.memory.queue = [];
 	}
