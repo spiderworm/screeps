@@ -11,6 +11,9 @@ var creepBoredomUtil = {
 	},
 	removeBoredom: function(creep) {
 		this.memory(creep).level = 0;
+	},
+	getBoredom: function(creep) {
+		return this.memory(creep).level;
 	}
 };
 
