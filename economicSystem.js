@@ -37,11 +37,11 @@ var economicSystem = {
     getSpawnNeeds: function() {
     	var result = [];
     	if (this.needs.sources) {
-    		var need = {role: harvester.role, count: 0};
+    		var harvesterNeed = {role: harvester.role, count: 0};
     		this.needs.sources.forEach(function(need) {
-    			need.count += need.count;
+    			harvesterNeed.count += need.count;
     		});
-    		result.push(need);
+    		result.push(harvesterNeed);
     	}
     	return result;
     }
