@@ -2,6 +2,7 @@
 var composer = require('composer');
 var roomUtil = require('roomUtil');
 var sourceUtil = require('sourceUtil');
+var controllerUtil = require('controllerUtil');
 var harvester = require('harvester');
 var upgrader = require('upgrader');
 var creepRoleSystem = require('creepRoleSystem');
@@ -20,7 +21,7 @@ var economicSystem = {
 			}.bind(this));
 
 			if (room.controller) {
-				var spaces = sourceUtil.countOpenUpgradeSpaces(room.controller);
+				var spaces = controllerUtil.countOpenUpgradeSpaces(room.controller);
 				if (spaces) {
 					this.addNeed('upgrade', {controller: room.controller, count: spaces});
 				}
