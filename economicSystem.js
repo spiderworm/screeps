@@ -67,9 +67,9 @@ var economicSystem = {
 			});
 			result.push(harvesterNeed);
 		}
-		if (this.needs.upgrader) {
+		if (this.needs.upgrade) {
 			var upgraderNeed = {role: upgrader.role, count: 0};
-			this.needs.upgrader.forEach(function(need) {
+			this.needs.upgrade.forEach(function(need) {
 				upgraderNeed.count += need.count;
 			});
 			result.push(upgraderNeed)
