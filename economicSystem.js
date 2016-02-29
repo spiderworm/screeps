@@ -41,6 +41,7 @@ var economicSystem = {
     		this.needs.sources.forEach(function(need) {
     			need.count += need.count;
     		});
+    		result.push(need);
     	}
     	return result;
     }

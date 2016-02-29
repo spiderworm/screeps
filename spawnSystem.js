@@ -16,7 +16,7 @@ SpawnSystem.prototype.tick = function() {
 	var spawnNeeds = economicSystem.getSpawnNeeds();
 	spawnNeeds.forEach(function(need) {
 		this.queueUpTo(need.role, need.count);
-	});
+	}.bind(this));
 
 	spawnUtil.forEach(function(mySpawn) {
 		if (this.memory.queue[0]) {
