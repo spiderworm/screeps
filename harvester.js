@@ -52,7 +52,7 @@ var harvester = {
 			break;
 		}
 	},
-    
+	
 	moveTo: function(creep, pos) {
 		var result = creep.moveTo(pos);
 		switch(result) {
@@ -69,14 +69,14 @@ var harvester = {
 		this.memory(creep).source = source.id;
 	},
 
-    _getSource: function(creep) {
+	_getSource: function(creep) {
 		var memory = this.memory(creep);
 		if (!memory.source) {
 			this.assignSource(creep, any.of(roomUtil.getSources(creep.room)));
 		}
 		return sourceUtil.getById(memory.source);
-    }
-    
+	}
+	
 };
 
 

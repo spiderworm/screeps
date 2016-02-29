@@ -23,6 +23,10 @@ var upgrader = {
 		}
 	},
 
+	assignController: function(creep, controller) {
+		
+	},
+
 	startHarvesting: function(creep) {
 		this.memory(creep).task = HARVEST_TASK;
 	},

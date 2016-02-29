@@ -1,6 +1,6 @@
 
 function CreepRoleSystem() {
-    this.roles = {};
+	this.roles = {};
 }
 CreepRoleSystem.prototype.addRoles = function() {
 	Array.prototype.forEach.call(arguments, function(role) {
@@ -38,5 +38,5 @@ CreepRoleSystem.prototype.creepHasParts = function(creep, role) {
 	var result = neededParts.length === 0;
 	return result;
 };
-    
+	
 module.exports = new CreepRoleSystem();

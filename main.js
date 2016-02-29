@@ -1,57 +1,57 @@
 
 var systems = [
-    require('loopSystem'),
-    require('creepRoleSystem'),
-    require('defenseSystem'),
-    require('economicSystem'),
-    require('attackSystem'),
-    require('creepProcessingSystem'),
-    require('spawnSystem')
+	require('loopSystem'),
+	require('creepRoleSystem'),
+	require('defenseSystem'),
+	require('economicSystem'),
+	require('attackSystem'),
+	require('creepProcessingSystem'),
+	require('spawnSystem')
 
-    /*
-    require('creepBoredomSystem'),
-    require('defenseSystem'),
-    require('turretSystem'),
-    //require('captureSystem'),
-    //require('commanderSystem'),
-    require('upgraderSystem'),
-    require('economySystem'),
-    require('harvestSystem'),
-    require('wanderSystem'),
-    require('spawnSystem')
-    */
+	/*
+	require('creepBoredomSystem'),
+	require('defenseSystem'),
+	require('turretSystem'),
+	//require('captureSystem'),
+	//require('commanderSystem'),
+	require('upgraderSystem'),
+	require('economySystem'),
+	require('harvestSystem'),
+	require('wanderSystem'),
+	require('spawnSystem')
+	*/
 ];
 
 systems.forEach(function(system) {
-    if (system.upgrade) {
-        system.upgrade();
-    }
-    if (system.init) {
-        system.init();
-    }
+	if (system.upgrade) {
+		system.upgrade();
+	}
+	if (system.init) {
+		system.init();
+	}
 });
 
 module.exports.loop = function () {
-    var error = null;
+	var error = null;
 
-    systems.forEach(function(system) {
-        try {
-            if (system.tick) {
-                system.tick();
-            }
-        } catch(e) {
-            console.log('system error', e.message);
-            if (!error) {
-                error = e;
-            }
-        }
-    });
+	systems.forEach(function(system) {
+		try {
+			if (system.tick) {
+				system.tick();
+			}
+		} catch(e) {
+			console.log('system error', e.message);
+			if (!error) {
+				error = e;
+			}
+		}
+	});
 
-    if (error) {
-        throw error;   
-    }
+	if (error) {
+		throw error;   
+	}
 
-    /*
+	/*
 
 	for(var name in Game.creeps) {
 		var creep = Game.creeps[name];
@@ -74,13 +74,13 @@ module.exports.loop = function () {
 		}
 		
 		if(creep.memory.role == 'guard') {
-        	var targets = creep.room.find(FIND_HOSTILE_CREEPS);
-        	if(targets.length) {
-        		if(creep.attack(targets[0]) == ERR_NOT_IN_RANGE) {
-        			creep.moveTo(targets[0]);		
-        		}
-        	}
-        }
+			var targets = creep.room.find(FIND_HOSTILE_CREEPS);
+			if(targets.length) {
+				if(creep.attack(targets[0]) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(targets[0]);		
+				}
+			}
+		}
 	}
 	*/
 

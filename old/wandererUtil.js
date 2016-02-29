@@ -2,8 +2,8 @@
 var creepRoleUtil = require('creepRoleUtil');
 
 var role = {
-    name: 'wanderer',
-    body: [MOVE]
+	name: 'wanderer',
+	body: [MOVE]
 };
 
 creepRoleUtil.addRole(role);

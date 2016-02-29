@@ -2,8 +2,8 @@
 var composer = require('composer');
 
 var defenseSystem = {
-    tick: function() {
-    }
+	tick: function() {
+	}
 };
 
 composer.addFeature(defenseSystem, 'memory', 'defenseSystem');
