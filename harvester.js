@@ -10,7 +10,7 @@ var harvester = {
 
 	tickCreep: function(creep) {
 		var source = this._getSource(creep);
-		this.harvest(creep);
+		this.harvest(creep, source);
 	},
 
 	harvest: function(creep, source) {
