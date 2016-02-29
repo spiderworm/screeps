@@ -56,7 +56,7 @@ var upgrader = {
 			creepBoredomUtil.addBoredom(creep);
 		}
 	},
-	
+
 	upgradeController: function(creep, controller) {
 		if (controller) {
 			var result = creep.upgradeController(controller);

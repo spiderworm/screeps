@@ -1,36 +1,41 @@
 
+var composer = require('composer');
 var sourceUtil = require('sourceUtil');
 var Role = require('Role');
+var creepBoredomUtil = require('creepBoredomUtil');
+var any = require('any');
+var roomUtil = require('roomUtil');
 
 var harvester = {
 
-	harvest: function(creep) {
-		if(creep.carry.energy >= creep.carryCapacity) {
-			return this.deliver(creep);			
-		}
+	tickCreep: function(creep) {
+		var source = this._getSource(creep);
+		this.harvest(creep);
+	},
 
-		try {
-			//var source = creep.room.find(FIND_SOURCES)[0];
-			var source = sourceUtil.getById(creep.memory.source);
-			var result = creep.harvest(source);
-		} catch(e) {
-			console.log(e.message);
-		}
-		switch(result) {
-			case OK:
-				//creepLogUtil.log(creep);
-			break;
-			case ERR_NOT_IN_RANGE:
-				this.moveTo(creep, source);
-			break;
-			case ERR_INVALID_TARGET:
-				//console.log(creep.name, "apparently cant find source", source ? source.id : source);
-			break;
-			case ERR_BUSY:
-			break;
-			default:
-				console.log(creep.name, "got unexpected harvest result", result);
-			break;
+	harvest: function(creep, source) {
+		if (source) {
+			try {
+				var result = creep.harvest(source);
+			} catch(e) {
+				console.log(e.message);
+			}
+			switch(result) {
+				case OK:
+					creepBoredomUtil.removeBoredom(creep);
+				break;
+				case ERR_NOT_IN_RANGE:
+					this.moveTo(creep, source);
+				break;
+				case ERR_BUSY:
+				break;
+				case ERR_INVALID_TARGET:
+				default:
+					creepBoredomUtil.addBoredom(creep);
+				break;
+			}
+		} else {
+			creepBoredomUtil.addBoredom(creep);
 		}
 	},
 
@@ -48,13 +53,24 @@ var harvester = {
 		}
 	},
     
-    moveTo: function(creep, pos) {
-        var result = creep.moveTo(pos);
-        switch(result) {
-            case OK:
-                //creepLogUtil.log(creep);
-            break;
-        }
+	moveTo: function(creep, pos) {
+		var result = creep.moveTo(pos);
+		switch(result) {
+			case OK:
+				creepBoredomUtil.removeBoredom(creep);
+			break;
+			default:
+				creepBoredomUtil.addBoredom(creep);
+			break;
+		}
+	},
+
+    _getSource: function(creep) {
+		var memory = this.memory(creep);
+		if (!memory.source) {
+			memory.source = any.of(roomUtil.getSources(creep.room)).id;
+		}
+		return sourceUtil.getById(memory.source);
     }
     
 };
@@ -63,8 +79,9 @@ var harvester = {
 harvester.role = Role.create(
 	'harvester',
 	[WORK, CARRY, MOVE], 
-	harvester.harvest.bind(harvester)
+	harvester.tickCreep.bind(harvester)
 );
 
+composer.addFeature(harvester, 'creepMemory', 'harvester');
 
 module.exports = harvester;
