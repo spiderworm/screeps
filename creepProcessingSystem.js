@@ -19,7 +19,7 @@ var creepProcessingSystem = {
 	},
 
 	findRole: function(creep) {
-		var role = econommicSystem.assignRole(creep);
+		var role = economicSystem.assignRole(creep);
 	}
 
 };
