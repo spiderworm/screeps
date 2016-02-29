@@ -3,6 +3,7 @@ var composer = require('composer');
 var creepUtil = require('creepUtil');
 var creepRoleSystem = require('creepRoleSystem');
 var creepBoredomUtil = require('creepBoredomUtil');
+var economicSystem = require('economicSystem');
 
 var creepProcessingSystem = {
 
@@ -13,6 +14,7 @@ var creepProcessingSystem = {
 			var tick = creepRoleSystem.getTickFunction(role);
 			tick(creep);
 			if (creepBoredomUtil.getBoredom(creep) > 10) {
+				if (economicSystem.giveRole(creep))
 				if (creepRoleSystem.creepCanHaveRole(creep, creepRoleSystem.roles.harvester)) {
 					creepRoleSystem.assignRole(creep, creepRoleSystem.roles.harvester);
 					creepBoredomUtil.removeBoredom(creep);
@@ -20,6 +22,10 @@ var creepProcessingSystem = {
 			}
 		});
 
+	},
+
+	findRole: function(creep) {
+		var role = econommicSystem.assignRole(creep);
 	}
 
 };

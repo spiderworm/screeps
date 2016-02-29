@@ -65,10 +65,14 @@ var harvester = {
 		}
 	},
 
+	assignSource: function(creep, source) {
+		this.memory(creep).source = source.id;
+	},
+
     _getSource: function(creep) {
 		var memory = this.memory(creep);
 		if (!memory.source) {
-			memory.source = any.of(roomUtil.getSources(creep.room)).id;
+			this.assignSource(creep, any.of(roomUtil.getSources(creep.room)));
 		}
 		return sourceUtil.getById(memory.source);
     }
