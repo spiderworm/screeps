@@ -34,7 +34,7 @@ var harvester = {
 			}
 			switch(result) {
 				case OK:
-					creepBoredomUtil.removeBoredom(creep);
+					creepBoredomUtil.clearBoredom(creep);
 				break;
 				case ERR_NOT_IN_RANGE:
 					this.moveTo(creep, source);
@@ -69,7 +69,7 @@ var harvester = {
 		var result = creep.moveTo(pos);
 		switch(result) {
 			case OK:
-				creepBoredomUtil.removeBoredom(creep);
+				creepBoredomUtil.clearBoredom(creep);
 			break;
 			default:
 				creepBoredomUtil.addBoredom(creep);

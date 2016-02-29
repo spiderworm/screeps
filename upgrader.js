@@ -44,7 +44,7 @@ var upgrader = {
 			}
 			switch(result) {
 				case OK:
-					creepBoredomUtil.removeBoredom(creep);
+					creepBoredomUtil.clearBoredom(creep);
 				break;
 				case ERR_NOT_IN_RANGE:
 					this.moveTo(creep, source);
@@ -66,7 +66,7 @@ var upgrader = {
 			var result = creep.upgradeController(controller);
 			switch(result) {
 				case OK:
-					creepBoredomUtil.removeBoredom(creep);
+					creepBoredomUtil.clearBoredom(creep);
 				break;
 				case ERR_NOT_IN_RANGE:
 					this.moveTo(creep, controller);
@@ -85,7 +85,7 @@ var upgrader = {
 		var result = creep.moveTo(pos);
 		switch(result) {
 			case OK:
-				creepBoredomUtil.removeBoredom(creep);
+				creepBoredomUtil.clearBoredom(creep);
 			break;
 			default:
 				creepBoredomUtil.addBoredom(creep);

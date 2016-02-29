@@ -13,13 +13,16 @@ var creepProcessingSystem = {
 			var tick = creepRoleSystem.getTickFunction(role);
 			tick(creep);
 			if (creepBoredomUtil.getBoredom(creep) > 10) {
-				this.findRole(creep);
+				if (!this.findRole(creep) && creepBoredomUtil.getBoredom(creep) > 20) {
+				    creep.suicide();
+				};
 			}
 		}.bind(this));
 	},
 
 	findRole: function(creep) {
 		var role = economicSystem.assignRole(creep);
+		return role;
 	}
 
 };
