@@ -10,10 +10,13 @@ creepRoleSystem.addRoles(harvester.role, upgrader.role);
 
 var economicSystem = {
     tick: function() {
+    	this.clearNeeds();
     	roomUtil.forEach(function(room) {
     		roomUtil.getSources(room).forEach(function(source) {
     			var spaces = sourceUtil.countOpenHarvestSpaces(source);
-    			this.addNeed('sources', {source: source, count: spaces});
+    			if (spaces) {
+    				this.addNeed('sources', {source: source, count: spaces});
+    			}
     		}.bind(this));
     	}.bind(this));
     },
@@ -30,6 +33,16 @@ var economicSystem = {
 				}
 			}
 		}
+    },
+    getSpawnNeeds: function() {
+    	var result = [];
+    	if (this.needs.sources) {
+    		var need = {role: harvester.role, count: 0};
+    		this.needs.sources.forEach(function(need) {
+    			need.count += need.count;
+    		});
+    	}
+    	return result;
     }
 };
 

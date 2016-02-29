@@ -11,6 +11,12 @@ SpawnSystem.prototype.upgrade = function() {
 	}
 };
 SpawnSystem.prototype.tick = function() {
+
+	var spawnNeeds = economicSystem.getSpawnNeeds();
+	spawnNeeds.forEach(function(need) {
+		this.queueUpTo(need.role, need.count);
+	});
+
 	spawnUtil.forEach(function(mySpawn) {
 		if (this.memory.queue[0]) {
 			var role = creepRoleSystem.roles[this.memory.queue[0]];
@@ -23,6 +29,7 @@ SpawnSystem.prototype.tick = function() {
 			}
 		}
 	}.bind(this));
+
 };
 SpawnSystem.prototype.queue = function(role) {
 	this.memory.queue.push(role.name);

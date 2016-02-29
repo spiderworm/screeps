@@ -23,6 +23,7 @@ var composer = {
             }
         },
         needs: function(obj) {
+            obj.clearNeeds = function() { this._needs = {}; };
             obj._needs = {};
             Object.defineProperty(obj, 'needs', {
                 get: function() { return obj._needs; }
