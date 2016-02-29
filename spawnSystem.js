@@ -3,6 +3,7 @@ var composer = require('composer');
 var spawnUtil = require('spawnUtil');
 var creepNames = require('creepNames');
 var creepRoleSystem = require('creepRoleSystem');
+var economicSystem = require('economicSystem');
 
 function SpawnSystem() {}
 SpawnSystem.prototype.upgrade = function() {
