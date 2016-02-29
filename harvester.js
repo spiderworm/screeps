@@ -6,11 +6,23 @@ var creepBoredomUtil = require('creepBoredomUtil');
 var any = require('any');
 var roomUtil = require('roomUtil');
 
+var DELIVER_TASK = 'deliver';
+var HARVEST_TASK = 'harvest';
+
 var harvester = {
 
 	tickCreep: function(creep) {
-		var source = this._getSource(creep);
-		this.harvest(creep, source);
+		var task = this._getTask(creep);
+		switch(task) {
+			case DELIVER_TASK:
+				var spawn = Game.spawns.Spawn1;
+				this.deliver(creep, spawn);
+			break;
+			default:
+				var source = this._getSource(creep);
+				this.harvest(creep, source);
+			break;
+		}
 	},
 
 	harvest: function(creep, source) {
@@ -39,8 +51,8 @@ var harvester = {
 		}
 	},
 
-	deliver: function(creep) {
-		var result = creep.transfer(Game.spawns.Spawn1, RESOURCE_ENERGY);
+	deliver: function(creep, target) {
+		var result = creep.transfer(target, RESOURCE_ENERGY);
 		switch(result) {
 			case OK:
 				//creepLogUtil.log(creep);
@@ -75,6 +87,13 @@ var harvester = {
 			this.assignSource(creep, any.of(roomUtil.getSources(creep.room)));
 		}
 		return sourceUtil.getById(memory.source);
+	},
+
+	_getTask: function(creep) {
+		if (creep.carry.energy >= creep.carryCapacity) {
+			return DELIVER_TASK;
+		}
+		return HARVEST_TASK;
 	}
 	
 };
