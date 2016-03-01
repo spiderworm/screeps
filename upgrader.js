@@ -6,6 +6,7 @@ var any = require('any');
 var roomUtil = require('roomUtil');
 var sourcesSystem = require('sourcesSystem');
 var creepBoredomUtil = require('creepBoredomUtil');
+var harvester = require('harvester');
 
 var UPGRADE_TASK = 'upgrade';
 var HARVEST_TASK = 'harvest';
@@ -18,7 +19,7 @@ var upgrader = {
 				this.upgradeController(creep, creep.room.controller);
 			break;
 			default:
-				this.harvest(creep, sourcesSystem.getById(this.memory(creep).source));
+				harvester.harvest(creep, sourcesSystem.getById(this.memory(creep).source));
 			break;
 		}
 	},
@@ -33,32 +34,6 @@ var upgrader = {
 
 	startUpgrading: function(creep) {
 		this.memory(creep).task = UPGRADE_TASK;
-	},
-
-	harvest: function(creep, source) {
-		if (source) {
-			try {
-				var result = creep.harvest(source);
-			} catch(e) {
-				console.log(e.message);
-			}
-			switch(result) {
-				case OK:
-					creepBoredomUtil.clearBoredom(creep);
-				break;
-				case ERR_NOT_IN_RANGE:
-					this.moveTo(creep, source);
-				break;
-				case ERR_BUSY:
-				break;
-				case ERR_INVALID_TARGET:
-				default:
-					creepBoredomUtil.addBoredom(creep);
-				break;
-			}
-		} else {
-			creepBoredomUtil.addBoredom(creep);
-		}
 	},
 
 	upgradeController: function(creep, controller) {
