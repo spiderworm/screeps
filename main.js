@@ -9,19 +9,6 @@ var systems = [
 	require('attackSystem'),
 	require('creepProcessingSystem'),
 	require('spawnSystem')
-
-	/*
-	require('creepBoredomSystem'),
-	require('defenseSystem'),
-	require('turretSystem'),
-	//require('captureSystem'),
-	//require('commanderSystem'),
-	require('upgraderSystem'),
-	require('economySystem'),
-	require('harvestSystem'),
-	require('wanderSystem'),
-	require('spawnSystem')
-	*/
 ];
 
 systems.forEach(function(system) {

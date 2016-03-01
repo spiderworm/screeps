@@ -11,15 +11,6 @@ creepRoleSystem.addRoles(harvester.role, upgrader.role);
 
 var economicSystem = {
 	tick: function() {
-		this.clearNeeds();
-		roomUtil.forEach(function(room) {
-			if (room.controller) {
-				var spaces = controllersSystem.countOpenUpgradeSpaces(room.controller);
-				if (spaces) {
-					this.addNeed('upgrade', {controller: room.controller, count: spaces});
-				}
-			}
-		}.bind(this));
 	},
 	assignRole: function(creep) {
 		var role;
@@ -33,16 +24,12 @@ var economicSystem = {
 			}
 		}
 		if (!role && creepRoleSystem.creepCanHaveRole(creep, upgrader.role)) {
-			if (this.needs.upgrade) {
-				var need = this.needs.upgrade.find(function(need) {
-					return need.count > 0;
-				});
-				if (need) {
-					need.count--;
-					creepRoleSystem.assignRole(creep, upgrader.role);
-					upgrader.assignController(creep, need.controller);
-					role = upgrader.role;
-				}
+			var need = sourcesSystem.getNeed();
+			if (need) {
+				need.count--;
+				creepRoleSystem.assignRole(creep, upgrader.role);
+				upgrader.assignController(creep, need.controller);
+				role = upgrader.role;
 			}
 		}
 		return role;
@@ -53,12 +40,9 @@ var economicSystem = {
 		if (sourceNeeds > 0) {
 			result.push({role: harvester.role, count: sourceNeeds});
 		}
-		if (this.needs.upgrade) {
-			var upgraderNeed = {role: upgrader.role, count: 0};
-			this.needs.upgrade.forEach(function(need) {
-				upgraderNeed.count += need.count;
-			});
-			result.push(upgraderNeed)
+		var upgradeNeeds = controllersSystem.getNeedsCount();
+		if (upgradeNeeds > 0) {
+			result.push({role: upgrader.role, count: upgradeNeeds});
 		}
 		return result;
 	}
