@@ -51,7 +51,7 @@ var sourcesSystem = {
 			if (this._needs[id]) {
 				return true;
 			}
-		});
+		}.bind(this));
 		if (key) {
 			return this._needs[id];
 		}
