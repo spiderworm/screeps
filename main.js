@@ -3,6 +3,7 @@ var systems = [
 	require('loopSystem'),
 	require('creepRoleSystem'),
 	require('sourcesSystem'),
+	require('controllersSystem'),
 	require('defenseSystem'),
 	require('economicSystem'),
 	require('attackSystem'),

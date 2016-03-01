@@ -1,7 +1,7 @@
 
 var roomUtil = require('roomUtil');
 
-var controllerUtil = {
+var controllersSystem = {
 	countOpenUpgradeSpaces: function(controller) {
 		var x = controller.pos.x;
 		var y = controller.pos.y;
@@ -10,4 +10,4 @@ var controllerUtil = {
 	}
 };
 
-module.exports = controllerUtil;
+module.exports = controllersSystem;
