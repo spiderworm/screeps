@@ -37,7 +37,9 @@ var harvester = {
 					creepBoredomUtil.clearBoredom(creep);
 				break;
 				case ERR_NOT_IN_RANGE:
-					this.moveTo(creep, source);
+					if (this.moveTo(creep, source) !== OK) {
+						sourcesSystem.addToWaitingQueue(source, creep);
+					}
 				break;
 				case ERR_BUSY:
 				break;
@@ -70,11 +72,17 @@ var harvester = {
 		switch(result) {
 			case OK:
 				creepBoredomUtil.clearBoredom(creep);
+				return true;
+			break;
+			case ERR_NO_PATH:
+			    creep.say('no path');
+				creepBoredomUtil.addBoredom(creep);
 			break;
 			default:
 				creepBoredomUtil.addBoredom(creep);
 			break;
 		}
+		return result;
 	},
 
 	assignSource: function(creep, source) {

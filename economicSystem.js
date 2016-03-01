@@ -13,13 +13,6 @@ var economicSystem = {
 	tick: function() {
 		this.clearNeeds();
 		roomUtil.forEach(function(room) {
-			roomUtil.getSources(room).forEach(function(source) {
-				var spaces = sourcesSystem.countOpenHarvestSpaces(source);
-				if (spaces) {
-					this.addNeed('sources', {source: source, count: spaces});
-				}
-			}.bind(this));
-
 			if (room.controller) {
 				var spaces = controllerUtil.countOpenUpgradeSpaces(room.controller);
 				if (spaces) {
@@ -31,16 +24,12 @@ var economicSystem = {
 	assignRole: function(creep) {
 		var role;
 		if (creepRoleSystem.creepCanHaveRole(creep, harvester.role)) {
-			if (this.needs.sources) {
-				var need = this.needs.sources.find(function(need) {
-					return need.count > 0;
-				});
-				if (need) {
-					need.count--;
-					creepRoleSystem.assignRole(creep, harvester.role);
-					harvester.assignSource(creep, need.source);
-					role = harvester.role;
-				}
+			var need = sourcesSystem.getNeed();
+			if (need) {
+				need.count--;
+				creepRoleSystem.assignRole(creep, harvester.role);
+				harvester.assignSource(creep, need.source);
+				role = harvester.role;
 			}
 		}
 		if (!role && creepRoleSystem.creepCanHaveRole(creep, upgrader.role)) {
