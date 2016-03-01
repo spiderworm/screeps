@@ -1,6 +1,6 @@
 
 var composer = require('composer');
-var sourceUtil = require('sourceUtil');
+var sourcesSystem = require('sourcesSystem');
 var Role = require('Role');
 var creepBoredomUtil = require('creepBoredomUtil');
 var any = require('any');
@@ -86,7 +86,7 @@ var harvester = {
 		if (!memory.source) {
 			this.assignSource(creep, any.of(roomUtil.getSources(creep.room)));
 		}
-		return sourceUtil.getById(memory.source);
+		return sourcesSystem.getById(memory.source);
 	},
 
 	_getTask: function(creep) {

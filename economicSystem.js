@@ -1,7 +1,7 @@
 
 var composer = require('composer');
 var roomUtil = require('roomUtil');
-var sourceUtil = require('sourceUtil');
+var sourcesSystem = require('sourcesSystem');
 var controllerUtil = require('controllerUtil');
 var harvester = require('harvester');
 var upgrader = require('upgrader');
@@ -14,7 +14,7 @@ var economicSystem = {
 		this.clearNeeds();
 		roomUtil.forEach(function(room) {
 			roomUtil.getSources(room).forEach(function(source) {
-				var spaces = sourceUtil.countOpenHarvestSpaces(source);
+				var spaces = sourcesSystem.countOpenHarvestSpaces(source);
 				if (spaces) {
 					this.addNeed('sources', {source: source, count: spaces});
 				}

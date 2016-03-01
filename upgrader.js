@@ -4,7 +4,7 @@ var creepMemoryUtil = require('creepMemoryUtil');
 var composer = require('composer');
 var any = require('any');
 var roomUtil = require('roomUtil');
-var sourceUtil = require('sourceUtil');
+var sourcesSystem = require('sourcesSystem');
 var creepBoredomUtil = require('creepBoredomUtil');
 
 var UPGRADE_TASK = 'upgrade';
@@ -18,7 +18,7 @@ var upgrader = {
 				this.upgradeController(creep, creep.room.controller);
 			break;
 			default:
-				this.harvest(creep, sourceUtil.getById(this.memory(creep).source));
+				this.harvest(creep, sourcesSystem.getById(this.memory(creep).source));
 			break;
 		}
 	},

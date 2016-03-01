@@ -1,7 +1,7 @@
 
 var roomUtil = require('roomUtil');
 
-var sourceUtil = {
+var sourcesSystem = {
 	_sources: {},
 	getById: function(id) {
 		if (!this._sources[id]) {
@@ -24,4 +24,4 @@ var sourceUtil = {
 	}
 };
 
-module.exports = sourceUtil;
+module.exports = sourcesSystem;
