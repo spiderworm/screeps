@@ -53,7 +53,7 @@ var sourcesSystem = {
 			}
 		}.bind(this));
 		if (key) {
-			return this._needs[id];
+			return this._needs[key];
 		}
 	}
 };
