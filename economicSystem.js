@@ -49,12 +49,9 @@ var economicSystem = {
 	},
 	getSpawnNeeds: function() {
 		var result = [];
-		if (this.needs.sources) {
-			var harvesterNeed = {role: harvester.role, count: 0};
-			this.needs.sources.forEach(function(need) {
-				harvesterNeed.count += need.count;
-			});
-			result.push(harvesterNeed);
+		var sourceNeeds = sourcesSystem.getNeedsCount();
+		if (sourceNeeds > 0) {
+			result.push({role: harvester.role, count: sourceNeeds});
 		}
 		if (this.needs.upgrade) {
 			var upgraderNeed = {role: upgrader.role, count: 0};

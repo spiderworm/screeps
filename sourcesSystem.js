@@ -55,6 +55,13 @@ var sourcesSystem = {
 		if (key) {
 			return this._needs[key];
 		}
+	},
+	getNeedsCount: function() {
+		var count = 0;
+		Object.keys(this._needs).forEach(function(id) {
+			count += this._needs[id].count;
+		}.bind(this));
+		return count;
 	}
 };
 
