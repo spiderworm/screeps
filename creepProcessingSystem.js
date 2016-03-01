@@ -14,7 +14,7 @@ var creepProcessingSystem = {
 			tick(creep);
 			if (creepBoredomUtil.getBoredom(creep) > 10) {
 				if (!this.findRole(creep) && creepBoredomUtil.getBoredom(creep) > 20) {
-				    creep.suicide();
+				    //creep.suicide();
 				};
 			}
 		}.bind(this));
