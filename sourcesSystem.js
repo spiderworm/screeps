@@ -6,11 +6,13 @@ var sourcesSystem = {
 	tick: function() {
 		this._creepQueues = {};
 		this._needs = {};
-		roomUtil.getSources(room).forEach(function(source) {
-			var spaces = this.countOpenHarvestSpaces(source);
-			if (spaces) {
-				this._needs[source.id] = {source: source, count: spaces};
-			}
+		roomUtil.forEach(function(room) {
+			roomUtil.getSources(room).forEach(function(source) {
+				var spaces = this.countOpenHarvestSpaces(source);
+				if (spaces) {
+					this._needs[source.id] = {source: source, count: spaces};
+				}
+			}.bind(this));
 		}.bind(this));
 	},
 	getById: function(id) {
