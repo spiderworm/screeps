@@ -11,7 +11,7 @@ var controllersSystem = {
 				if (spaces) {
 					this._needs[room.controller.id] = {controller: room.controller, count: spaces};
 				}
-			}.bind(this));
+			}
 		}.bind(this));
 	},
 	countOpenSpaces: function(controller) {
