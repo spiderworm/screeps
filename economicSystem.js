@@ -49,6 +49,6 @@ var economicSystem = {
 };
 
 composer.addFeature(economicSystem, 'memory', 'economicSystem');
-composer.addFeature(economicSystem, 'needs');
+//composer.addFeature(economicSystem, 'needs');
 
 module.exports = economicSystem;
