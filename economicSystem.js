@@ -14,25 +14,21 @@ var economicSystem = {
 	},
 	assignRole: function(creep) {
 		var role;
-		if (creepRoleSystem.creepCanHaveRole(creep, harvester.role)) {
-			var need = sourcesSystem.getNeed();
-			if (need) {
+		var need = sourcesSystem.getNeed();
+		if (need) {
+			if (creepRoleSystem.creepCanHaveRole(creep, harvester.role)) {
 				need.count--;
 				creepRoleSystem.assignRole(creep, harvester.role);
 				harvester.assignSource(creep, need.source);
-				role = harvester.role;
+				return harvester.role;
 			}
-		}
-		if (!role && creepRoleSystem.creepCanHaveRole(creep, upgrader.role)) {
-			var need = sourcesSystem.getNeed();
-			if (need) {
+			if (!role && creepRoleSystem.creepCanHaveRole(creep, upgrader.role)) {
 				need.count--;
 				creepRoleSystem.assignRole(creep, upgrader.role);
 				upgrader.assignController(creep, need.controller);
-				role = upgrader.role;
+				return upgrader.role;
 			}
 		}
-		return role;
 	},
 	getSpawnNeeds: function() {
 		var result = [];
