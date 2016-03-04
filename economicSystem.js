@@ -13,7 +13,7 @@ var economicSystem = {
 	tick: function() {
 	},
 	assignRole: function(creep) {
-		var role = sourceSystem.giveRole(creep);
+		var role;
 		if (creepRoleSystem.creepCanHaveRole(creep, harvester.role)) {
 			var need = sourcesSystem.getNeed();
 			if (need) {
