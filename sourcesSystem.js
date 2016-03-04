@@ -1,5 +1,8 @@
 
 var roomUtil = require('roomUtil');
+var creepRoleSystem = require('creepRoleSystem');
+var harvester = require('harvester');
+var upgrader = require('upgrader');
 
 var sourcesSystem = {
 	_sources: {},
@@ -62,6 +65,23 @@ var sourcesSystem = {
 			count += this._needs[id].count;
 		}.bind(this));
 		return count;
+	},
+	giveRole: function(creep) {
+		var need = this.getNeed();
+		if (need) {
+			if (creepRoleSystem.creepCanHaveRole(creep, harvester.role)) {
+				need.count--;
+				creepRoleSystem.assignRole(creep, harvester.role);
+				harvester.assignSource(creep, need.source);
+				return harvester.role;
+			}
+			if (creepRoleSystem.creepCanHaveRole(creep, upgrader.role)) {
+				need.count--;
+				creepRoleSystem.assignRole(creep, upgrader.role);
+				upgrader.assignController(creep, need.controller);
+				return upgrader.role;
+			}
+		}
 	}
 };
 
